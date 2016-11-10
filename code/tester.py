@@ -7,15 +7,13 @@ from oauth2client.service_account import ServiceAccountCredentials
 from httplib2 import Http
 
 def main():
-    #databaseFile = 'test.db'
+    databaseFile = '../files/temperature.db'
     filename = '/sys/bus/w1/devices/28-00044a3b10ff/w1_slave'
     interface = 'eth0'
     place = 'Kitchen'
 
     macAddr = reader.getMACAddr(interface)
-    print 'Reading MAC Adress...'
     (time, celcius, farenheit) = reader.readTemperature(filename)
-    print 'Reading temperature...'
 
     spreadsheet = {
         'ID' : '1PY-eVqQs-2LdJu3gZ2tdaBRBNFh0gpI1GdSWpL_yXd8',
@@ -25,7 +23,7 @@ def main():
     }
 
     #location = {macAddr: place}
-    #database.uploadToDB(databaseFile, (t, c, f), location[hwAddr])
+    database.uploadToDB(databaseFile, (t, c, f), location[hwAddr])
     credentials = c.get_credentials()
     http_auth = credentials.authorize(Http())
     service = build('sheets', 'v4', http = http_auth)

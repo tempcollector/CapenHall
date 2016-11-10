@@ -16,6 +16,7 @@ def getMACAddr(interface):
     fails to retrieve the MAC (Media Access Control) address from the given
     interface, then the MAC address for the eth0 interface will be returned."""
     filename = '/sys/class/net/' + interface + '/address'
+    print 'Reading MAC Adress...'
     try:
         macAddress = read(filename)
     except:
@@ -25,7 +26,11 @@ def readTemperature(filename):
     """Reads the temperature in degrees celcius from a file.
     It returns the recorded time of the temperature along with the
     temperature in degrees celcius and farenheit."""
-    data = read(filename)
+    print 'Reading temperature...'
+    try :
+        data = read(filename)
+    except IOError:
+        raise TempSensorError('The temperature sensor is discconected.')
     currentTime = time.strftime('%x %X %Z')
     celcius = __parseTemperature(data)
     farenheit = round(celcius * 9.0 / 5.0 + 32.0, 3)
@@ -41,8 +46,8 @@ def __parseTemperature(data):
     checksum = data[0].find('crs=00')
     celcius = data[1].split('t=')
     if checksum == 'crc=00':
-        raise TempSensorException('The temperature sensor is discconected.')
+        raise TempSensorError('The temperature sensor is discconected.')
     return float(celcius[1]) / 1000
-class TempSensorException(Exception):
+class TempSensorError(Exception):
     def __init__(self, message):
         self.message = message
