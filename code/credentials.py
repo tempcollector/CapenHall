@@ -16,7 +16,7 @@ except ImportError:
 # If modifying these scopes, delete your previously saved credentials
 # at ~/.credentials/sheets.googleapis.com-python-quickstart.json
 SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
-APPLICATION_NAME = 'Google Sheets API Python Quickstart'
+APPLICATION_NAME = 'Temperature Logger'
 def __getProjectDir():
     return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def get_credentials():
