@@ -19,21 +19,18 @@ def getDBFile():
     return databaseFile
 def setUpdatedToSheets():
     database = getDBFile()
-    connection = sqlite3.connect(database)
-    cursor = connection.cursor()
-    try:
-        SELECT_VALUES = '''UPDATE temperature
-            SET updatedToSheets = ?
-            WHERE  updatedToSheets = ?'''
-        data = (True, False)
-        print 'Updating updated files to sheets...'
-        cursor.execute(SELECT_VALUES, data)
-        connection.commit()
-    except sqlite3.Error as error:
-        print error.message
-    finally:
-        connection.close()
-
+    with connection = sqlite3.connect(database):
+        cursor = connection.cursor()
+        try:
+            SELECT_VALUES = '''UPDATE temperature
+                SET updatedToSheets = ?
+                WHERE  updatedToSheets = ?'''
+            data = (True, False)
+            print 'Updating updated files to sheets...'
+            cursor.execute(SELECT_VALUES, data)
+            connection.commit()
+        except sqlite3.Error as error:
+            print error.message
 def uploadToDB((timeDateZone, celcius, farenheit), location):
     """Uploads temperature information along its location of origin to a
     sqlite3 database."""
