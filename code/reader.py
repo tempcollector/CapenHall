@@ -15,11 +15,11 @@ def getMACAddr(interface):
     interface, then the MAC address for the eth0 interface will be returned."""
     MAC_ADDRESS_eth0 = '/sys/class/net/eth0/address'
     filename = '/sys/class/net/' + interface + '/address'
-    print 'Reading MAC Adress...'
     try:
         macAddress = read(filename)
     except:
         macAddress = read(MAC_ADDRESS_eth0)
+    print 'Reading MAC Adress...: ', macAddress.strip()
     return macAddress.strip()
 def readTemperature(filename):
     """Reads the temperature in degrees celcius from a file.
@@ -54,9 +54,9 @@ def __parseTemperature(data):
     TempSensorError is thrown; otherwise, the temperature readings should
     be fine."""
     data = data.split('\n')
-    checksum = data[0].find('crc=00')
+    crc = data[0].find('crc=00')
     celcius = data[1].split('t=')
-    if checksum != -1:
+    if crc != -1:
         raise TempSensorError('The temperature sensor is discconected.')
     return float(celcius[1]) / 1000
 class TempSensorError(Exception):
