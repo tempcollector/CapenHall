@@ -1,12 +1,13 @@
 #!/usr/bin/python
 import PI
+import glob
 import reader
 import sqlite3
 import database
 from reader import TempSensorError
 
 def main():
-    tempFile = '/sys/bus/w1/devices/28-00044a3b10ff/w1_slave'
+    tempFile = glob.glob('/sys/bus/w1/devices/28-*/w1_slave')
     interface = 'wlan0'
     try:
         macAddr = reader.getMACAddr(interface)
@@ -18,10 +19,8 @@ def main():
     except TempSensorError as error:
         print place, ': ', error.message
     except sqlite3.Error as error:
-        print place, ': aaa', error.message
+        print place, ': ', error.message
     else:
         print 'Success...'
-def __getProjectDir():
-    return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if __name__ == '__main__':
     main()
