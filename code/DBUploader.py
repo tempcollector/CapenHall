@@ -20,6 +20,8 @@ def main():
         print place, ': ', error.message
     except sqlite3.Error as error:
         print place, ': ', error.message
+    except as error:
+        print tempFile, error.message
     else:
         print 'Success...'
 if __name__ == '__main__':
