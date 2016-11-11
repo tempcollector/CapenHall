@@ -16,9 +16,9 @@ except ImportError:
 # If modifying these scopes, delete your previously saved credentials
 # at ~/.credentials/sheets.googleapis.com-python-quickstart.json
 SCOPES = 'https://www.googleapis.com/auth/spreadsheets'
-CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'Google Sheets API Python Quickstart'
-
+def __getProjectDir():
+    return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def get_credentials():
     """Gets valid user credentials from storage.
 
@@ -38,6 +38,8 @@ def get_credentials():
     credentials = store.get()
     if not credentials or credentials.invalid:
         print('Getting credentials from secret file')
+        projectDir = __getProjectDir()
+        CLIENT_SECRET_FILE = os.path.join(projectDir, 'keys/client_secret.json')
         flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
         flow.user_agent = APPLICATION_NAME
         if flags:

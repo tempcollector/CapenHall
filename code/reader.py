@@ -3,8 +3,6 @@ import time
 import os
 import sys
 
-MAC_ADDRESS_eth0 = '/sys/class/net/eth0/address'
-
 def read(filename):
     """Reads data from a file and returns the data."""
     tempFile = open(filename)
@@ -15,6 +13,7 @@ def getMACAddr(interface):
     """Retrieves the hardware address from the interface provided. If the method
     fails to retrieve the MAC (Media Access Control) address from the given
     interface, then the MAC address for the eth0 interface will be returned."""
+    MAC_ADDRESS_eth0 = '/sys/class/net/eth0/address'
     filename = '/sys/class/net/' + interface + '/address'
     print 'Reading MAC Adress...'
     try:
@@ -39,12 +38,13 @@ def readTemperature(filename):
     except IOError:
         raise TempSensorError('The temperature sensor is disconected.')
     else:
-        currentTime = time.strftime('%x %X %Z')
+        # [time, date, timezone]
+        timeDateZone = time.strftime('%X %x %Z').split()
         # A TempSensorError can be thrown if the file containig the temperature
         # does not have valid data
         celcius = __parseTemperature(data)
         farenheit = round(celcius * 9.0 / 5.0 + 32.0, 3)
-        return (currentTime, celcius, farenheit)
+        return (timeDateZone, celcius, farenheit)
 def __parseTemperature(data):
     """Parses the temperature in degreees celcius from a string.
     The string contains the following informattion in two lines:
