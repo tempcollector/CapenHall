@@ -20,7 +20,7 @@ def getDBFile():
     return databaseFile
 def setUpdatedToSheets():
     database = getDBFile()
-    with connection = sqlite3.connect(database):
+    with sqlite3.connect(database) as connection:
         cursor = connection.cursor()
         try:
             SELECT_VALUES = '''UPDATE temperature
@@ -36,7 +36,7 @@ def uploadToDB((timeDateZone, celcius, farenheit), location):
     """Uploads temperature information along its location of origin to a
     sqlite3 database."""
     database = getDBFile()
-    with connection = sqlite3.connect(database):
+    with sqlite3.connect(database) as connection:
         cursor = connection.cursor()
         try:
             INSERT_VALUES = 'INSERT INTO temperature VALUES (?,?,?,?,?,?,?)'
@@ -53,7 +53,7 @@ def getFromDB(updatedToSheets):
     """Retrieves records from the temperature table that have not yet been
     updated to Google Sheets."""
     database = getDBFile()
-    with connection = sqlite3.connect(database):
+    with sqlite3.connect(database) as connection:
         cursor = connection.cursor()
         try:
             SELECT_VALUES = '''SELECT
