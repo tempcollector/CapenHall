@@ -8,12 +8,14 @@ from oauth2client.service_account import ServiceAccountCredentials
 def main():
     updatedToSheets = False
     data = database.getFromDB(updatedToSheets)
+    richardSheetID = '1PY-eVqQs-2LdJu3gZ2tdaBRBNFh0gpI1GdSWpL_yXd8'
+    sheetID = '1XATRUyPfMIqiLKrpYixMT2E6hT1uwkknSBgW8v3x1ME'
     if data != None:
         ROWS = list()
         for row in data:
             ROWS.append(list(row))
         spreadsheet = {
-                    'ID' : '1PY-eVqQs-2LdJu3gZ2tdaBRBNFh0gpI1GdSWpL_yXd8',
+                    'ID' : sheetID,
                     'rangeName' : 'A1:F1',
                     'valueInputOption' : 'RAW',
                     'ROWS' : ROWS
