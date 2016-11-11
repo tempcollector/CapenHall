@@ -7,7 +7,7 @@ import database
 from reader import TempSensorError
 
 def main():
-    tempFile = glob.glob('/sys/bus/w1/devices/28-*/w1_slave')
+    tempFile = glob.glob('/sys/bus/w1/devices/28-*/w1_slave')[0]
     interface = 'wlan0'
     try:
         macAddr = reader.getMACAddr(interface)
