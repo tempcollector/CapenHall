@@ -12,6 +12,7 @@ CREATE_TABLE = '''CREATE TABLE IF NOT EXISTS temperature(
     updatedToSheets INTEGER
 )'''
 def __getProjectDir():
+    """Gets the project directory."""
     return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def getDBFile():
     projectDir = __getProjectDir()
