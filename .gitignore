@@ -8,4 +8,5 @@ __pycache__/
 *.so
 
 # data files
-temperature.db
+/files/*.db
+
