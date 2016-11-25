@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import database
+import PI
 import credentials as c
 from httplib2 import Http
 from apiclient.discovery import build
@@ -9,8 +10,10 @@ def main():
     updatedToSheets = False
     data = database.getFromDB(updatedToSheets)
     richardSheetID = '1PY-eVqQs-2LdJu3gZ2tdaBRBNFh0gpI1GdSWpL_yXd8'
-    sheetID = '1XATRUyPfMIqiLKrpYixMT2E6hT1uwkknSBgW8v3x1ME'
+#    sheetID = '1XATRUyPfMIqiLKrpYixMT2E6hT1uwkknSBgW8v3x1ME'
+#    sheetID = '1boUcEcfsP0mgNnZUjvQw8U69MXZBF7LRhWvZ42iP6OY'
     if data != None:
+        sheetID=PI.Sheets[data[0][2]]
         ROWS = list()
         for row in data:
             ROWS.append(list(row))
