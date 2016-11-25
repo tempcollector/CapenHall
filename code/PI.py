@@ -1,6 +1,6 @@
 location = {
     '00:e0:4c:1d:47:75': 'Richard',
-    '80:1f:02:b5:be:02': 'Easwaran'
+    '80:1f:02:b5:be:02': 'Easwaran',
     '80:1f:02:b5:be:05': 'F0NE',
     '00:e0:4c:1d:49:3d': 'F0SE',
     '00:e0:4c:1d:48:6b': 'F0SW',
